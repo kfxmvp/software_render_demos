@@ -439,3 +439,11 @@ export function normalization(vec:Vec4):Vec4{
 vec.x *= width;
 vec.y *= height;
 ```
+
+ <iframe  
+ height=850 
+ width=90% 
+ src="https://codesandbox.io/s/4-model-wf6r4u"  
+ frameborder=0  
+ allowfullscreen>
+ </iframe>
