@@ -2,6 +2,10 @@
 1. 根据光照（Phone模型），实现平行光，点光源和聚光灯
 2. 使用3-Texture中的立方体，展示其在三种灯光下的效果
 
+完整实现可参见
+- `./demos/5-Light`
+- [CodeSandBox: 5-Light](https://codesandbox.io/s/5-light-hoclzx)
+
 ## **准备工作**
 
 ## **工作开始**

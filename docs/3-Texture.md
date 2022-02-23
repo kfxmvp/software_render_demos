@@ -3,7 +3,9 @@
 2. 输出一个3D立方体到2D屏幕，且每个面都显示为上述贴图，并自动按x/y/z任意方向旋转
 ![效果图](./textures/texture_1.gif)
 
-完整实现可参见`demos/3-Textures`
+完整实现可参见
+- `./demos/3-Textures`
+- [CodeSandBox: 3-Texture](https://codesandbox.io/s/3-texture-wmm3uc)
 
 ## **工作开始**
 ### **uv**

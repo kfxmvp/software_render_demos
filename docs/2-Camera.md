@@ -3,7 +3,9 @@
 2. 输出一个有颜色过渡的3D正方体在屏幕上，并自动按x/y/z任意方向旋转
 ![结果图](./textures/camera_12.gif)
 
-完整实现可参见`demos/2-Camera`
+完整实现可参见
+- `./demos/2-Camera`
+- [CodeSandBox: 2-Camera](https://codesandbox.io/s/2-camera-peqfcq)
 
 ## 准备工作
 开始此节前，强烈建议学习Games101第3-4节，理解仿射变化，齐次坐标等概念，并对矩阵/向量运算有清晰认识

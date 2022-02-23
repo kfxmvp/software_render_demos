@@ -13,7 +13,9 @@
 
 先来看一下 我们本节demo优化后的文件/目录结构
 
-具体实现见`demos/4-Model`
+完整实现可参见
+- `./demos/4-Model`
+- [CodeSandBox: 4-Model](https://codesandbox.io/s/4-model-wf6r4u)
 
 ```
 .

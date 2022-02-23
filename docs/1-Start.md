@@ -3,7 +3,9 @@
 2. 输出一个有颜色过渡的三角形在屏幕上
 ![结果图](./textures/start_5.png)
 
-完整实现可参见`demos/1-Start`
+完整实现可参见 
+- `./demos/1-Start`
+- [CodeSandBox: 1-Start](https://codesandbox.io/s/1-start-1uzzq4)
 ## 准备工作
 ### **1.参考资料**
 1. [计算机图形学：基础入门][1]
@@ -439,11 +441,3 @@ export function normalization(vec:Vec4):Vec4{
 vec.x *= width;
 vec.y *= height;
 ```
-
- <iframe  
- height=850 
- width=90% 
- src="https://codesandbox.io/s/4-model-wf6r4u"  
- frameborder=0  
- allowfullscreen>
- </iframe>
