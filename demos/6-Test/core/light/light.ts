@@ -112,7 +112,7 @@ export class Light {
         const diffuse = this._color.clone().mul3(Math.max(cos, 0));
 
         // 高光
-        const spec = Math.pow(Math.max(viewDir.dotVec3(reflectDir), 0), 32);
+        const spec = Math.pow(Math.max(viewDir.dotVec3(reflectDir), 0), 32)
         const specular = this._specularColor.clone().mul3(this._specularIntensity * spec);
 
         return ambient.add(diffuse).add(specular);
@@ -130,7 +130,7 @@ export class Light {
         this._ambientIntensity = 1;
 
         // 高光设置
-        this._specularColor = Color.WHITE.clone();
+        this._specularColor = new Color();
         this._specularIntensity = 1;
     }
 }

@@ -46,7 +46,7 @@ raster.useStencil = true;
 const useDirectLight = () => {
     light = new DirectLight();
     light.setColor(Color.WHITE.clone());
-    light.setDirection(new Vec4(0, 1, 0, 0));
+    light.setDirection(new Vec4(0, 0, -1, 0));
     light.setPosition(new Vec4(0, 0, 0, 1));
     light.setIntensity(1);
 
@@ -54,6 +54,43 @@ const useDirectLight = () => {
     light.useAmbient();
     light.setAmbientColor(Color.WHITE.clone());
     light.setAmbientIntensity(0.3);
+
+    // 镜面高光
+    light.setSpecularColor(Color.WHITE.clone());
+    light.setSpecularIntensity(0.5);
+}
+
+// 使用点光源
+const usePointLight = () => {
+    light = new PointLight();
+    light.setColor(Color.WHITE.clone());
+    light.setPosition(new Vec4(0, 0, -3, 1));
+    light.setIntensity(1);
+
+    // 环境光
+    light.useAmbient();
+    light.setAmbientColor(Color.WHITE.clone());
+    light.setAmbientIntensity(0.3);
+
+    // 镜面高光
+    light.setSpecularColor(Color.WHITE.clone());
+    light.setSpecularIntensity(0.5);
+}
+
+// 使用聚光灯
+const useSpotLight = () => {
+    light = new SpotLight();
+    light.setColor(Color.WHITE.clone());
+    light.setPosition(new Vec4(0, 0, -3, 1));
+    light.setDirection(new Vec4(0, 0, 1, 0));
+    light.setCutoffAngle(25);
+    light.setCutOutOffAngle(27.5);
+    light.setIntensity(1);
+
+    // 环境光
+    light.useAmbient();
+    light.setAmbientColor(Color.WHITE.clone());
+    light.setAmbientIntensity(0.1);
 
     // 镜面高光
     light.setSpecularColor(Color.WHITE.clone());
@@ -84,8 +121,8 @@ const dealAutoRotation = () => {
 
 let loaded = false;
 const loadResource = async () => {
-    const n1 = await createNode(0, 0, 0, 1);
-    // const n2 = await createNode(2, 0, 0, 0.5);
+    const n1 = await createNode(-1, 0, 0, 1);
+    const n2 = await createNode(1, 0, 0, 0.5);
 }
 
 const createNode = async (x: number, y: number, z: number, size: number) => {
@@ -147,5 +184,7 @@ const update = () => {
 loadResource().then(() => loaded = true)
 
 useDirectLight();
+// usePointLight();
+// useSpotLight();
 
 update();

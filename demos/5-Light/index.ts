@@ -36,29 +36,11 @@ let light: DirectLight | PointLight | SpotLight;
 const raster = new Raster();
 const { width, height } = raster;
 
-// 使用基础灯光
-const useBaseLight = () => {
-    // @ts-ignore
-    light = new Light();
-    light.setColor(Color.WHITE.clone());
-    light.setPosition(new Vec4(0, 0, 0, 1));
-    light.setIntensity(1);
-
-    // 环境光
-    light.useAmbient();
-    light.setAmbientColor(Color.WHITE.clone());
-    light.setAmbientIntensity(0.3);
-
-    // 镜面高光
-    light.setSpecularColor(Color.RED.clone());
-    light.setSpecularIntensity(0.5);
-}
-
 // 使用平行光
 const useDirectLight = () => {
     light = new DirectLight();
     light.setColor(Color.WHITE.clone());
-    light.setDirection(new Vec4(0, 1, 0, 0));
+    light.setDirection(new Vec4(0, 0, -1, 0));
     light.setPosition(new Vec4(0, 0, 0, 1));
     light.setIntensity(1);
 
@@ -76,13 +58,13 @@ const useDirectLight = () => {
 const usePointLight = () => {
     light = new PointLight();
     light.setColor(Color.WHITE.clone());
-    light.setPosition(new Vec4(-2, 0, 0, 1));
+    light.setPosition(new Vec4(0, 0, -3, 1));
     light.setIntensity(1);
 
     // 环境光
     light.useAmbient();
     light.setAmbientColor(Color.WHITE.clone());
-    light.setAmbientIntensity(0.1);
+    light.setAmbientIntensity(0.3);
 
     // 镜面高光
     light.setSpecularColor(Color.WHITE.clone());
@@ -93,10 +75,10 @@ const usePointLight = () => {
 const useSpotLight = () => {
     light = new SpotLight();
     light.setColor(Color.WHITE.clone());
-    light.setPosition(new Vec4(0, 0, 5, 1));
-    light.setDirection(new Vec4(0, 0, -1, 0));
-    light.setCutoffAngle(5);
-    light.setCutOutOffAngle(7.5);
+    light.setPosition(new Vec4(0, 0, -3, 1));
+    light.setDirection(new Vec4(0, 0, 1, 0));
+    light.setCutoffAngle(25);
+    light.setCutOutOffAngle(27.5);
     light.setIntensity(1);
 
     // 环境光
@@ -149,7 +131,7 @@ const loadResource = async () => {
 
     model.addObject(object);
 
-    await texture.setImageDataWithSrc(Tex2);
+    await texture.setImageDataWithSrc(Tex1);
     material.setShader(shader);
     material.setTexture(texture);
 
@@ -185,7 +167,6 @@ const update = () => {
 
 loadResource().then(() => loaded = true)
 
-// useBaseLight();
 useDirectLight();
 // usePointLight();
 // useSpotLight();

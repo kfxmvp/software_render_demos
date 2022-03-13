@@ -117,37 +117,6 @@ export class Shader {
             color.mul(phongColor, color);
         }
 
-        // 光照计算放在shader中
-        // if (light && camera) {
-        //     // 入射方向
-        //     const lightDir = light.getPosition().clone().sub(worldPosition);
-
-        //      // 漫反射
-        //     //用法向量 点乘 片元到光的方向 就是余弦值
-        //     const cos = normal.normalize().dotVec3(lightDir);
-        //     const diffuse = light.getColor().clone().mul3(Math.max(cos, 0));
-
-
-        //     // 高光
-        //     // 折射方向
-        //     const reflectDir = CalcUtil.reflect(lightDir, normal);
-        //     const viewDir = camera.position.sub(worldPosition).normalize();
-        //     const spec = Math.pow(Math.max(viewDir.dotVec3(reflectDir), 0), 32)
-        //     const specular = light.getSpecularColor().clone().mul3(light.getSpecularIntensity() * spec);
-
-        //     // 漫反射 + 高光
-        //     const phongColor = diffuse.add(specular);
-
-        //     if (light.useAmbient) {
-        //         // 环境光
-        //         const ambient = light.getAmbientColor().clone();
-        //         const intensity = light.getAmbientIntensity();
-        //         phongColor.add(ambient.mul3(intensity));
-
-        //         color.mul(phongColor, color);
-        //     }
-        // }
-
         return color;
     }
 

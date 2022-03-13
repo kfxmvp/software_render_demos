@@ -107,7 +107,7 @@ export class Light {
             : Color.WHITE.clone();
 
         //用法向量 点乘 片元到光的方向 就是余弦值
-        const cos = normal.normalize().dotVec3(lightDir);
+        const cos = normal.dotVec3(lightDir);
         // 漫反射
         const diffuse = this._color.clone().mul3(Math.max(cos, 0));
 
