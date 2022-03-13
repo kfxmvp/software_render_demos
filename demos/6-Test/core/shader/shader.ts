@@ -65,6 +65,22 @@ export class Shader {
         this._texture.setImageData(texture.imageData);
     }
 
+    private _useAlphaTest: boolean = false;
+    public get useAlphaTest(): boolean {
+        return this._useAlphaTest;
+    }
+    public set useAlphaTest(use: boolean) {
+        this._useAlphaTest = use;
+    }
+
+    private _alphaTestThreshold: number = 25;
+    public get alphaTestThreshold(): number {
+        return this._alphaTestThreshold;
+    }
+    public set alphaTestThreshold(threshold: number) {
+        this._alphaTestThreshold = threshold;
+    }
+
     /**顶点着色 */
     public vertexShader(vertex: Vertex): Vert2Frag {
         const { modelMatrix, viewMatrix, projectionMatrix } = this;
@@ -95,7 +111,7 @@ export class Shader {
         v2f.u *= v2f.Z;
         v2f.v *= v2f.Z;
 
-        v2f.normal = CalcUtil.vec4MulMat4(v2f.normal.clone(), this._getNormalMatrix()).normalize();
+        v2f.normal = CalcUtil.vec4MulMat4(v2f.normal, this._getNormalMatrix()).normalize();
 
         return v2f;
     }
@@ -117,36 +133,8 @@ export class Shader {
             color.mul(phongColor, color);
         }
 
-        // 光照计算放在shader中
-        // if (light && camera) {
-        //     // 入射方向
-        //     const lightDir = light.getPosition().clone().sub(worldPosition);
-
-        //      // 漫反射
-        //     //用法向量 点乘 片元到光的方向 就是余弦值
-        //     const cos = normal.normalize().dotVec3(lightDir);
-        //     const diffuse = light.getColor().clone().mul3(Math.max(cos, 0));
-
-
-        //     // 高光
-        //     // 折射方向
-        //     const reflectDir = CalcUtil.reflect(lightDir, normal);
-        //     const viewDir = camera.position.sub(worldPosition).normalize();
-        //     const spec = Math.pow(Math.max(viewDir.dotVec3(reflectDir), 0), 32)
-        //     const specular = light.getSpecularColor().clone().mul3(light.getSpecularIntensity() * spec);
-
-        //     // 漫反射 + 高光
-        //     const phongColor = diffuse.add(specular);
-
-        //     if (light.useAmbient) {
-        //         // 环境光
-        //         const ambient = light.getAmbientColor().clone();
-        //         const intensity = light.getAmbientIntensity();
-        //         phongColor.add(ambient.mul3(intensity));
-
-        //         color.mul(phongColor, color);
-        //     }
-        // }
+        // 透明度测试
+        if (this._useAlphaTest && color.a < this._alphaTestThreshold) return;
 
         return color;
     }

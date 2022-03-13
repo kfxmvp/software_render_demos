@@ -11,7 +11,6 @@ import { Color } from "./base/color";
 import { Mesh } from "./core/mesh";
 import { Model } from "./core/model/model";
 import { ModelObject } from "./core/model/object";
-import { Light } from "./core/light/light";
 import { DirectLight } from "./core/light/direct_light";
 import { PointLight } from "./core/light/point_light";
 import { SpotLight } from "./core/light/spot_light";
@@ -20,6 +19,11 @@ import { SpotLight } from "./core/light/spot_light";
 import Tex1 from "./resources/1.png";
 // @ts-ignore
 import Tex2 from "./resources/2.png";
+// @ts-ignore
+import Tex3 from "./resources/3.jpg";
+// @ts-ignore
+import Tex4 from "./resources/4.jpg";
+
 
 const scene = new Scene();
 const camera = scene.camera;
@@ -35,24 +39,8 @@ let light: DirectLight | PointLight | SpotLight;
 
 const raster = new Raster();
 const { width, height } = raster;
-
-// 使用基础灯光
-const useBaseLight = () => {
-    // @ts-ignore
-    light = new Light();
-    light.setColor(Color.WHITE.clone());
-    light.setPosition(new Vec4(0, 0, 0, 1));
-    light.setIntensity(1);
-
-    // 环境光
-    light.useAmbient();
-    light.setAmbientColor(Color.WHITE.clone());
-    light.setAmbientIntensity(0.3);
-
-    // 镜面高光
-    light.setSpecularColor(Color.RED.clone());
-    light.setSpecularIntensity(0.5);
-}
+// 模板测试
+raster.useStencil = true;
 
 // 使用平行光
 const useDirectLight = () => {
@@ -66,43 +54,6 @@ const useDirectLight = () => {
     light.useAmbient();
     light.setAmbientColor(Color.WHITE.clone());
     light.setAmbientIntensity(0.3);
-
-    // 镜面高光
-    light.setSpecularColor(Color.WHITE.clone());
-    light.setSpecularIntensity(0.5);
-}
-
-// 使用点光源
-const usePointLight = () => {
-    light = new PointLight();
-    light.setColor(Color.WHITE.clone());
-    light.setPosition(new Vec4(-2, 0, 0, 1));
-    light.setIntensity(1);
-
-    // 环境光
-    light.useAmbient();
-    light.setAmbientColor(Color.WHITE.clone());
-    light.setAmbientIntensity(0.1);
-
-    // 镜面高光
-    light.setSpecularColor(Color.WHITE.clone());
-    light.setSpecularIntensity(0.5);
-}
-
-// 使用聚光灯
-const useSpotLight = () => {
-    light = new SpotLight();
-    light.setColor(Color.WHITE.clone());
-    light.setPosition(new Vec4(0, 0, 5, 1));
-    light.setDirection(new Vec4(0, 0, -1, 0));
-    light.setCutoffAngle(5);
-    light.setCutOutOffAngle(7.5);
-    light.setIntensity(1);
-
-    // 环境光
-    light.useAmbient();
-    light.setAmbientColor(Color.WHITE.clone());
-    light.setAmbientIntensity(0.1);
 
     // 镜面高光
     light.setSpecularColor(Color.WHITE.clone());
@@ -133,6 +84,11 @@ const dealAutoRotation = () => {
 
 let loaded = false;
 const loadResource = async () => {
+    const n1 = await createNode(0, 0, 0, 1);
+    // const n2 = await createNode(2, 0, 0, 0.5);
+}
+
+const createNode = async (x: number, y: number, z: number, size: number) => {
     const node = new Node();
     const mesh = new Mesh();
     const model = new Model();
@@ -143,13 +99,13 @@ const loadResource = async () => {
 
     node.model = model;
 
-    mesh.createBox(new Vec4(0, 0, 0), 1);
+    mesh.createBox(new Vec4(x, y, z), size);
     object.setMaterial(material);
     object.setMesh(mesh);
 
     model.addObject(object);
 
-    await texture.setImageDataWithSrc(Tex2);
+    await texture.setImageDataWithSrc(Tex3);
     material.setShader(shader);
     material.setTexture(texture);
 
@@ -172,7 +128,12 @@ const loadResource = async () => {
         ? camera.getOrthographicMatrix(-width / 2, width / 2, height / 2, -height / 2, near, far)
         : camera.getPerspectiveMatrix(fov, aspect, near, far);
 
+
+    // 透明度测试
+    shader.useAlphaTest = true;
     scene.addChild(node);
+
+    return node;
 }
 
 const update = () => {
@@ -185,9 +146,6 @@ const update = () => {
 
 loadResource().then(() => loaded = true)
 
-// useBaseLight();
 useDirectLight();
-// usePointLight();
-// useSpotLight();
 
 update();
