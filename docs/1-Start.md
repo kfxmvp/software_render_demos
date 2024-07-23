@@ -17,7 +17,7 @@
 7. [前端基础：Webpack][7]
 
 [1]:https://www.bilibili.com/video/BV1X7411F744
-[2]:https://www.bilibili.com/video/BV1ys411472E
+[2]:https://www.bilibili.com/video/BV1ys411472E/?vd_source=e1bbca6fcd1ccaeecd0eeff9db46b373
 [3]:https://www.shuxuele.com/
 [4]:https://developer.mozilla.org/zh-CN/docs/Web/HTML
 [5]:https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API
